@@ -1,0 +1,172 @@
+<mvc:View
+  controllerName="com.abics.codeup.controller.pages.Suppliers"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:f="sap.f"
+  xmlns:table="sap.ui.table"
+  xmlns:core="sap.ui.core"
+  displayBlock="true">
+
+  <f:FlexibleColumnLayout id="suppFcl" layout="{suppVM>/layout}" backgroundDesign="Solid">
+
+    <f:beginColumnPages>
+      <Page showHeader="false">
+        <content>
+          <VBox class="sapUiContentPadding">
+
+            <HBox alignItems="Center" class="sapUiMediumMarginBottom">
+              <core:Icon src="sap-icon://supplier" size="2rem" color="#00AA55" class="sapUiMediumMarginEnd"/>
+              <VBox>
+                <Title text="{i18n>suppliers_title}" level="H2"/>
+                <Text text="{i18n>suppliers_subtitle}" class="sapUiSmallText"/>
+              </VBox>
+            </HBox>
+
+            <Toolbar style="Clear">
+              <HBox alignItems="Center">
+                <Title text="{i18n>suppliers_title}" level="H4"/>
+                <Title text="{path:'suppVM>/count', formatter:'.fmtCountParen'}" level="H4" class="sapUiTinyMarginBegin"/>
+              </HBox>
+              <ToolbarSpacer/>
+              <SearchField id="suppSearch" width="220px" placeholder="{i18n>btn_search}" search=".onSearch" liveChange=".onSearch"/>
+              <Button icon="sap-icon://filter" tooltip="{i18n>btn_filter}" press=".onFilter" type="{suppVM>/filterBtn}"/>
+              <Button icon="sap-icon://add" text="{i18n>btn_add}" press=".onAdd" type="Emphasized"/>
+              <Button icon="sap-icon://delete" text="{i18n>btn_delete}" press=".onDelete" type="Reject" enabled="{suppVM>/hasSel}"/>
+              <Button icon="sap-icon://save" text="{i18n>btn_save}" press=".onSave" type="Accept" enabled="{suppVM>/dirty}"/>
+              <Button icon="sap-icon://cancel" text="{i18n>btn_cancel}" press=".onCancel" enabled="{suppVM>/dirty}"/>
+              <Button icon="sap-icon://upload" text="{i18n>btn_upload}" press=".onCSVOpen"/>
+            </Toolbar>
+
+            <table:Table
+              id="suppTable"
+              rows="{path:'/Suppliers', parameters:{$orderby:'TedarikciNo asc', $$updateGroupId:'batchGroup'}}"
+              selectionMode="MultiToggle"
+              enableColumnReordering="true"
+              alternateRowColors="true"
+              visibleRowCountMode="Auto"
+              minAutoRowCount="12"
+              rowSelectionChange=".onSelChange"
+              busy="{suppVM>/busy}"
+              noData="{i18n>home_noData}">
+
+              <table:columns>
+                <table:Column width="130px" sortProperty="TedarikciNo">
+                  <Label text="{i18n>col_tedarikciNo}"/>
+                  <table:template><Text text="{TedarikciNo}" wrapping="false"/></table:template>
+                </table:Column>
+                <table:Column width="250px" sortProperty="Ad">
+                  <Label text="{i18n>col_ad} *"/>
+                  <table:template>
+                    <Input value="{Ad}" editable="{suppVM>/edit}" required="true" liveChange=".onDirty"/>
+                  </table:template>
+                </table:Column>
+                <table:Column width="150px" sortProperty="TedarikciIstatGrup">
+                  <Label text="{i18n>col_tedarikciIstatGrup}"/>
+                  <table:template>
+                    <HBox>
+                      <Input value="{TedarikciIstatGrup}" editable="false" width="80px"/>
+                      <Button icon="sap-icon://value-help" type="Transparent" visible="{suppVM>/edit}" press=".onSGVH"/>
+                    </HBox>
+                  </table:template>
+                </table:Column>
+                <table:Column width="170px" sortProperty="IstatGrupAciklama">
+                  <Label text="{i18n>col_istatGrupAciklama}"/>
+                  <table:template><Text text="{IstatGrupAciklama}" wrapping="false"/></table:template>
+                </table:Column>
+                <table:Column width="120px" sortProperty="Ulke">
+                  <Label text="{i18n>col_ulke}"/>
+                  <table:template><Input value="{Ulke}" editable="{suppVM>/edit}"/></table:template>
+                </table:Column>
+                <table:Column width="90px" sortProperty="Doviz">
+                  <Label text="{i18n>col_doviz}"/>
+                  <table:template>
+                    <Select selectedKey="{Doviz}" enabled="{suppVM>/edit}">
+                      <core:Item key="TRY" text="TRY"/>
+                      <core:Item key="USD" text="USD"/>
+                      <core:Item key="EUR" text="EUR"/>
+                      <core:Item key="GBP" text="GBP"/>
+                    </Select>
+                  </table:template>
+                </table:Column>
+                <table:Column width="150px" sortProperty="Telefon">
+                  <Label text="{i18n>col_telefon}"/>
+                  <table:template><Input value="{Telefon}" editable="{suppVM>/edit}"/></table:template>
+                </table:Column>
+                <table:Column width="210px" sortProperty="Email">
+                  <Label text="{i18n>col_email} *"/>
+                  <table:template>
+                    <Input value="{Email}" editable="{suppVM>/edit}" required="true" liveChange=".onEmailChange"/>
+                  </table:template>
+                </table:Column>
+                <table:Column width="140px" sortProperty="SatinalmaciNo">
+                  <Label text="{i18n>col_satinalmaciNo}"/>
+                  <table:template>
+                    <HBox>
+                      <Input value="{SatinalmaciNo}" editable="false" width="80px"/>
+                      <Button icon="sap-icon://value-help" type="Transparent" visible="{suppVM>/edit}" press=".onPurchVH"/>
+                    </HBox>
+                  </table:template>
+                </table:Column>
+                <table:Column width="160px" sortProperty="SatinalmaciAd">
+                  <Label text="{i18n>col_satinalmaciAd}"/>
+                  <table:template><Text text="{SatinalmaciAd}" wrapping="false"/></table:template>
+                </table:Column>
+                <table:Column width="80px" hAlign="Center">
+                  <Label text="{i18n>col_details}"/>
+                  <table:template>
+                    <Button icon="sap-icon://detail-view" type="Transparent" press=".onDetail"/>
+                  </table:template>
+                </table:Column>
+                <table:Column width="80px" hAlign="Center">
+                  <Label text="{i18n>col_edit}"/>
+                  <table:template>
+                    <Button icon="sap-icon://edit" type="Transparent" press=".onEditRow"/>
+                  </table:template>
+                </table:Column>
+              </table:columns>
+            </table:Table>
+          </VBox>
+        </content>
+      </Page>
+    </f:beginColumnPages>
+
+    <f:midColumnPages>
+      <Page title="{i18n>supplierDetail_title}" showNavButton="true" navButtonPress=".onCloseDetail">
+        <content>
+          <VBox class="sapUiContentPadding">
+            <ObjectHeader
+              title="{suppDetail>/Ad}"
+              intro="{suppDetail>/TedarikciNo}"
+              icon="sap-icon://supplier">
+              <attributes>
+                <ObjectAttribute label="{i18n>col_ulke}" text="{suppDetail>/Ulke}"/>
+                <ObjectAttribute label="{i18n>col_doviz}" text="{suppDetail>/Doviz}"/>
+                <ObjectAttribute label="{i18n>col_email}" text="{suppDetail>/Email}"/>
+                <ObjectAttribute label="{i18n>col_telefon}" text="{suppDetail>/Telefon}"/>
+              </attributes>
+            </ObjectHeader>
+            <Panel headerText="{i18n>detail_supplierMaterials}" expandable="true" expanded="true" class="sapUiSmallMarginTop">
+              <content>
+                <List id="detailMatList" noDataText="{i18n>detail_noMaterials}">
+                  <items>
+                    <ObjectListItem
+                      title="{MalzemeTanimi}"
+                      intro="{MalzemeNo}"
+                      number="{Fiyat}"
+                      numberUnit="{Doviz}">
+                      <attributes>
+                        <ObjectAttribute label="{i18n>col_satinalmaGrubu}" text="{SatinalmaGrAciklama}"/>
+                        <ObjectAttribute label="{i18n>col_stok}" text="{Stok}"/>
+                      </attributes>
+                    </ObjectListItem>
+                  </items>
+                </List>
+              </content>
+            </Panel>
+          </VBox>
+        </content>
+      </Page>
+    </f:midColumnPages>
+
+  </f:FlexibleColumnLayout>
+</mvc:View>

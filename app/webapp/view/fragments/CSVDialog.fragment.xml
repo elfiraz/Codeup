@@ -1,0 +1,37 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified">
+  <Dialog title="{i18n>csv_title}" contentWidth="600px" resizable="true" draggable="true">
+    <content>
+      <VBox class="sapUiContentPadding">
+        <Label text="{i18n>csv_selectFileHint}" class="sapUiSmallMarginBottom"/>
+        <u:FileUploader id="csvFU" fileType="csv" width="100%"
+          placeholder="{i18n>csv_placeholder}" change=".onCSVFile"/>
+
+        <Panel headerText="{i18n>csv_errors}"
+          visible="{csvShared>/hasErrors}"
+          expandable="true" expanded="true" class="sapUiSmallMarginTop">
+          <content>
+            <List items="{csvShared>/errors}" noDataText="{i18n>csv_noErrors}" mode="None">
+              <StandardListItem
+                title="{parts:[{path:'row'},{path:'column'}], formatter:'.formatCsvErrTitle'}"
+                description="{error}"
+                icon="sap-icon://error"
+                iconInset="false"/>
+            </List>
+          </content>
+        </Panel>
+
+        <MessageStrip
+          text="{i18n>csv_allPassed}"
+          type="Success" showIcon="true"
+          visible="{csvShared>/validated}"
+          class="sapUiSmallMarginTop"/>
+      </VBox>
+    </content>
+    <buttons>
+      <Button text="{i18n>csv_validate}" icon="sap-icon://inspect" press=".onCSVValidate" type="Default"/>
+      <Button text="{i18n>csv_upload}" icon="sap-icon://upload" press=".onCSVUpload" type="Emphasized"
+        enabled="{csvShared>/validated}"/>
+      <Button text="{i18n>btn_close}" press=".onCSVClose"/>
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

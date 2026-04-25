@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <SelectDialog title="Satınalmacı Seç" confirm=".onPurchSelect" cancel=".onPurchSelect"
+    items="{path:'/Purchasers', parameters:{$orderby:'SatinalmaciNo asc'}}">
+    <StandardListItem title="{Ad}" description="{SatinalmaciNo}" type="Active"/>
+  </SelectDialog>
+</core:FragmentDefinition>

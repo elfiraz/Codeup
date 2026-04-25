@@ -1,0 +1,41 @@
+<mvc:View
+  controllerName="com.abics.codeup.controller.App"
+  displayBlock="true"
+  height="100%"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:tnt="sap.tnt"
+  xmlns:core="sap.ui.core">
+
+  <!-- Ana kabuk: ToolPage + yan menü; metinler i18n -->
+  <tnt:ToolPage id="toolPage" sideExpanded="true" class="codeupToolPage">
+    <tnt:header>
+      <tnt:ToolHeader>
+        <Button icon="sap-icon://menu2" type="Transparent" press=".onMenuButton" tooltip="{i18n>tooltip_menu}"/>
+        <ToolbarSpacer/>
+        <Title text="{i18n>appTitle}" level="H4"/>
+        <ToolbarSpacer/>
+        <Image src="images/abics-logo.svg" densityAware="false" decorative="false" alt="ABICS" height="1.75rem"/>
+        <Text text="{i18n>app_brandCodeUp}" class="sapUiTinyMarginBegin"/>
+        <ToolbarSpacer/>
+        <Text text="{i18n>app_developer}" class="sapUiTinyText"/>
+        <Avatar initials="İÇ" displaySize="XS" class="sapUiSmallMarginBegin"/>
+      </tnt:ToolHeader>
+    </tnt:header>
+
+    <tnt:sideContent>
+      <tnt:SideNavigation id="sideNav" expanded="true" itemSelect=".onSideNav">
+        <tnt:NavigationList>
+          <tnt:NavigationListItem text="{i18n>menu_home}" key="home" icon="sap-icon://home"/>
+          <tnt:NavigationListItem text="{i18n>menu_materials}" key="materials" icon="sap-icon://product"/>
+          <tnt:NavigationListItem text="{i18n>menu_suppliers}" key="suppliers" icon="sap-icon://supplier"/>
+          <tnt:NavigationListItem text="{i18n>menu_purchasingMasterData}" key="purchasingMasterData" icon="sap-icon://money-bills"/>
+        </tnt:NavigationList>
+      </tnt:SideNavigation>
+    </tnt:sideContent>
+
+    <tnt:mainContents>
+      <App id="pageContainer" height="100%"/>
+    </tnt:mainContents>
+  </tnt:ToolPage>
+</mvc:View>

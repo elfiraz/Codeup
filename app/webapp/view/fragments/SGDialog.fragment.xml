@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <SelectDialog title="Tedarikçi İstatistik Grubu Seç" confirm=".onSGSelect" cancel=".onSGSelect"
+    items="{path:'/SupplierStatGroups', parameters:{$orderby:'Kod asc'}}">
+    <StandardListItem title="{Aciklama}" description="{Kod}" type="Active"/>
+  </SelectDialog>
+</core:FragmentDefinition>

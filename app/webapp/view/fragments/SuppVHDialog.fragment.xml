@@ -1,0 +1,6 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <SelectDialog title="Tedarikçi Seç" confirm=".onSuppSelect" cancel=".onSuppSelect"
+    items="{path:'/Suppliers', parameters:{$orderby:'Ad asc', $select:'TedarikciNo,Ad'}}">
+    <StandardListItem title="{Ad}" description="{TedarikciNo}" type="Active"/>
+  </SelectDialog>
+</core:FragmentDefinition>

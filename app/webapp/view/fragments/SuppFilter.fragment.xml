@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <ViewSettingsDialog title="Tedarikçi Filtrele / Sırala"
+    confirm=".onFilterConfirm" cancel=".onFilterConfirm">
+    <filterItems>
+      <ViewSettingsFilterItem text="İstatistik Grubu" key="TedarikciIstatGrup">
+        <items>
+          <ViewSettingsItem text="Yurtiçi (YI)"  key="YI"/>
+          <ViewSettingsItem text="Yurtdışı (YD)" key="YD"/>
+        </items>
+      </ViewSettingsFilterItem>
+      <ViewSettingsFilterItem text="Döviz" key="Doviz">
+        <items>
+          <ViewSettingsItem text="TRY" key="TRY"/>
+          <ViewSettingsItem text="USD" key="USD"/>
+          <ViewSettingsItem text="EUR" key="EUR"/>
+        </items>
+      </ViewSettingsFilterItem>
+    </filterItems>
+    <sortItems>
+      <ViewSettingsItem text="Tedarikçi No" key="TedarikciNo" selected="true"/>
+      <ViewSettingsItem text="Ad"           key="Ad"/>
+      <ViewSettingsItem text="Ülke"         key="Ulke"/>
+    </sortItems>
+  </ViewSettingsDialog>
+</core:FragmentDefinition>

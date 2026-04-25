@@ -1,0 +1,58 @@
+<mvc:View
+  controllerName="com.abics.codeup.controller.pages.Home"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:l="sap.ui.layout"
+  xmlns:core="sap.ui.core"
+  displayBlock="true">
+
+  <Page showNavButton="false" showHeader="false" class="sapUiContentPadding">
+    <content>
+      <VBox>
+
+        <HBox alignItems="Center" class="sapUiLargeMarginBottom sapUiLargeMarginTop sapUiLargeMarginBeginEnd">
+          <core:Icon src="sap-icon://factory" size="3rem" color="#0070F2" class="sapUiMediumMarginEnd"/>
+          <VBox>
+            <Title text="{i18n>appTitle}" level="H1" titleStyle="H2"/>
+            <Text text="{i18n>home_tagline}" class="sapUiSmallMarginTop"/>
+          </VBox>
+        </HBox>
+
+        <l:Grid defaultSpan="L6 M12 S12" hSpacing="1" class="sapUiLargeMarginBeginEnd">
+
+          <Panel expandable="false" class="sapUiTinyMarginBottom">
+            <headerToolbar>
+              <Toolbar>
+                <Title text="{i18n>home_materials_title}" level="H3"/>
+                <ToolbarSpacer/>
+                <Button text="{i18n>home_seeAll}" type="Transparent" icon="sap-icon://arrow-right" press=".onSeeAllMaterials"/>
+              </Toolbar>
+            </headerToolbar>
+            <content>
+              <List id="matList" noDataText="{i18n>home_noData}" mode="None"/>
+            </content>
+          </Panel>
+
+          <Panel expandable="false" class="sapUiTinyMarginBottom">
+            <headerToolbar>
+              <Toolbar>
+                <Title text="{i18n>home_suppliers_title}" level="H3"/>
+                <ToolbarSpacer/>
+                <Button text="{i18n>home_seeAll}" type="Transparent" icon="sap-icon://arrow-right" press=".onSeeAllSuppliers"/>
+              </Toolbar>
+            </headerToolbar>
+            <content>
+              <List id="suppList" noDataText="{i18n>home_noData}" mode="None"/>
+            </content>
+          </Panel>
+
+        </l:Grid>
+
+        <HBox justifyContent="Center" class="sapUiLargeMarginTop sapUiLargeMarginBottom">
+          <Text text="{i18n>footer_text}" class="sapUiSmallText"/>
+        </HBox>
+
+      </VBox>
+    </content>
+  </Page>
+</mvc:View>

@@ -1,0 +1,41 @@
+/* ABICS CodeUp — Custom Styles */
+
+/* ToolPage tam yükseklik (responsive kabuk) */
+.codeupToolPage,
+.codeupToolPage .sapTntToolPageContentWrapper {
+  height: 100%;
+}
+
+.abicsHeader {
+  background: linear-gradient(135deg, #0070F2 0%, #0047AB 100%);
+  padding: 2rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.abicsHeader .sapMTitle,
+.abicsHeader .sapMText {
+  color: #ffffff !important;
+}
+
+.abicsCardMat {
+  border-left: 4px solid #0070F2;
+}
+
+.abicsCardSupp {
+  border-left: 4px solid #00AA55;
+}
+
+.abicsFooter {
+  text-align: center;
+  padding: 1rem;
+  color: #6c757d;
+  font-size: 0.85rem;
+  border-top: 1px solid #e9ecef;
+  margin-top: 2rem;
+}
+
+.stockLow  { color: #BB0000; font-weight: bold; }
+.stockOk   { color: #007833; font-weight: bold; }
+
+.sapUiSizeCompact .sapMListTbl { font-size: 0.875rem; }

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ürün ve Tedarikçi Yönetim Sistemi | ABICS</title>
+  <!-- Tarayıcı diline göre UI5 / i18n (tr-TR → tr, diğerleri → en) -->
+  <script>
+    window["sap-ui-config"] = window["sap-ui-config"] || {};
+    (function () {
+      var s = (navigator.language || navigator.userLanguage || "tr").toLowerCase();
+      window["sap-ui-config"].language = s.indexOf("tr") === 0 ? "tr" : "en";
+    })();
+  </script>
+  <script id="sap-ui-bootstrap"
+    src="https://ui5.sap.com/1.136.0/resources/sap-ui-core.js"
+    data-sap-ui-theme="sap_horizon"
+    data-sap-ui-libs="sap.m,sap.ui.core,sap.tnt,sap.f,sap.ui.layout,sap.ui.table,sap.ui.unified"
+    data-sap-ui-compatVersion="edge"
+    data-sap-ui-async="true"
+    data-sap-ui-resourceroots='{"com.abics.codeup":"./"}'
+    data-sap-ui-oninit="module:sap/ui/core/ComponentSupport">
+  </script>
+  <style>html,body{height:100%;margin:0;padding:0;}</style>
+</head>
+<body class="sapUiBody" id="content">
+  <div data-sap-ui-component
+       data-name="com.abics.codeup"
+       data-settings='{"id":"codeup"}'
+       style="height:100%"></div>
+</body>
+</html>

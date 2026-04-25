@@ -1,0 +1,31 @@
+{
+  "name": "codeup",
+  "version": "1.0.0",
+  "description": "Ürün ve Tedarikçi Yönetim Sistemi — ABICS CodeUp",
+  "license": "UNLICENSED",
+  "private": true,
+  "dependencies": {
+    "@sap/cds": "^8",
+    "express": "^4"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^8"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch",
+    "watch:hybrid": "cds watch --profile hybrid"
+  },
+  "cds": {
+    "requires": {
+      "db": {
+        "kind": "sqlite",
+        "credentials": { "url": "db.sqlite" }
+      }
+    },
+    "features": {
+      "assert_integrity": false
+    }
+  }
+}

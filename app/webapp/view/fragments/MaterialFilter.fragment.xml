@@ -1,0 +1,29 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <ViewSettingsDialog title="Malzeme Filtrele / Sırala"
+    confirm=".onFilterConfirm" cancel=".onFilterConfirm">
+    <filterItems>
+      <ViewSettingsFilterItem text="Döviz" key="Doviz">
+        <items>
+          <ViewSettingsItem text="TRY" key="TRY"/>
+          <ViewSettingsItem text="USD" key="USD"/>
+          <ViewSettingsItem text="EUR" key="EUR"/>
+          <ViewSettingsItem text="GBP" key="GBP"/>
+        </items>
+      </ViewSettingsFilterItem>
+      <ViewSettingsFilterItem text="Satınalma Grubu" key="SatinalmaGrubu">
+        <items>
+          <ViewSettingsItem text="B7001 - BT Yazılım"       key="B7001"/>
+          <ViewSettingsItem text="M1003 - İnşaat Demir"     key="M1003"/>
+          <ViewSettingsItem text="M3003 - Jeneratör Sistemi" key="M3003"/>
+          <ViewSettingsItem text="E6001 - Ekipman/Yedek"    key="E6001"/>
+        </items>
+      </ViewSettingsFilterItem>
+    </filterItems>
+    <sortItems>
+      <ViewSettingsItem text="Malzeme No"    key="MalzemeNo"    selected="true"/>
+      <ViewSettingsItem text="Malzeme Adı"   key="MalzemeTanimi"/>
+      <ViewSettingsItem text="Fiyat"         key="Fiyat"/>
+      <ViewSettingsItem text="Stok"          key="Stok"/>
+    </sortItems>
+  </ViewSettingsDialog>
+</core:FragmentDefinition>

@@ -1,0 +1,10 @@
+{
+  "requires": {
+    "[hybrid]": {
+      "db": {
+        "kind": "hana-cloud",
+        "vcap": { "name": "hana" }
+      }
+    }
+  }
+}

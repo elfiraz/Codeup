@@ -1,0 +1,96 @@
+<mvc:View
+  controllerName="com.abics.codeup.controller.pages.PurchasingMasterData"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:table="sap.ui.table"
+  xmlns:core="sap.ui.core"
+  displayBlock="true">
+
+  <Page showHeader="false" class="sapUiContentPadding">
+    <content>
+      <VBox>
+        <HBox alignItems="Center" class="sapUiMediumMarginBottom sapUiMediumMarginTop">
+          <core:Icon src="sap-icon://money-bills" size="2rem" color="#E07800" class="sapUiMediumMarginEnd"/>
+          <Title text="{i18n>pmd_title}" level="H2"/>
+        </HBox>
+
+        <IconTabBar id="tabs" select=".onTabSelect" expanded="true" width="100%">
+          <items>
+
+            <IconTabFilter key="pg" text="{i18n>pmd_groups}" icon="sap-icon://group">
+              <content>
+                <table:Table id="pgTable"
+                  rows="{path:'/PurchasingGroups', parameters:{$orderby:'GrupNo asc'}}"
+                  selectionMode="None" alternateRowColors="true"
+                  enableColumnReordering="true" visibleRowCountMode="Auto" minAutoRowCount="15"
+                  noData="{i18n>home_noData}">
+                  <table:columns>
+                    <table:Column width="150px" sortProperty="GrupNo" filterProperty="GrupNo">
+                      <Label text="{i18n>col_grupNo}"/>
+                      <table:template><Text text="{GrupNo}" wrapping="false"/></table:template>
+                    </table:Column>
+                    <table:Column sortProperty="Aciklama" filterProperty="Aciklama">
+                      <Label text="{i18n>col_aciklama}"/>
+                      <table:template><Text text="{Aciklama}" wrapping="false"/></table:template>
+                    </table:Column>
+                  </table:columns>
+                </table:Table>
+              </content>
+            </IconTabFilter>
+
+            <IconTabFilter key="sg" text="{i18n>pmd_statGroups}" icon="sap-icon://bar-chart">
+              <content>
+                <table:Table id="sgTable"
+                  rows="{path:'/SupplierStatGroups', parameters:{$orderby:'Kod asc'}}"
+                  selectionMode="None" alternateRowColors="true"
+                  enableColumnReordering="true" visibleRowCountMode="Auto" minAutoRowCount="5"
+                  noData="{i18n>home_noData}">
+                  <table:columns>
+                    <table:Column width="150px" sortProperty="Kod">
+                      <Label text="{i18n>col_kod}"/>
+                      <table:template><Text text="{Kod}"/></table:template>
+                    </table:Column>
+                    <table:Column sortProperty="Aciklama">
+                      <Label text="{i18n>col_aciklama}"/>
+                      <table:template><Text text="{Aciklama}"/></table:template>
+                    </table:Column>
+                    <table:Column width="120px" sortProperty="Gecerlilik">
+                      <Label text="{i18n>col_gecerlilik}"/>
+                      <table:template>
+                        <ObjectStatus
+                          text="{Gecerlilik}"
+                          state="{= ${Gecerlilik} === 'Aktif' ? 'Success' : 'Error'}"/>
+                      </table:template>
+                    </table:Column>
+                  </table:columns>
+                </table:Table>
+              </content>
+            </IconTabFilter>
+
+            <IconTabFilter key="pur" text="{i18n>pmd_purchasers}" icon="sap-icon://person-placeholder">
+              <content>
+                <table:Table id="purTable"
+                  rows="{path:'/Purchasers', parameters:{$orderby:'SatinalmaciNo asc'}}"
+                  selectionMode="None" alternateRowColors="true"
+                  enableColumnReordering="true" visibleRowCountMode="Auto" minAutoRowCount="5"
+                  noData="{i18n>home_noData}">
+                  <table:columns>
+                    <table:Column width="160px" sortProperty="SatinalmaciNo">
+                      <Label text="{i18n>col_satinalmaciNo}"/>
+                      <table:template><Text text="{SatinalmaciNo}"/></table:template>
+                    </table:Column>
+                    <table:Column sortProperty="Ad">
+                      <Label text="{i18n>col_ad}"/>
+                      <table:template><Text text="{Ad}"/></table:template>
+                    </table:Column>
+                  </table:columns>
+                </table:Table>
+              </content>
+            </IconTabFilter>
+
+          </items>
+        </IconTabBar>
+      </VBox>
+    </content>
+  </Page>
+</mvc:View>
