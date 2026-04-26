@@ -1,0 +1,34 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog title="{i18n>dialog_materialEditTitle}" contentWidth="520px" draggable="true" resizable="true">
+    <content>
+      <VBox class="sapUiContentPadding">
+        <Label text="{i18n>col_malzemeTanimi} *"/>
+        <Input value="{MalzemeTanimi}" required="true"/>
+        <Label text="{i18n>col_description}" class="sapUiSmallMarginTop"/>
+        <Input value="{Description}"/>
+        <Label text="{i18n>col_fiyat}" class="sapUiSmallMarginTop"/>
+        <Input value="{Fiyat}"/>
+        <Label text="{i18n>col_doviz}" class="sapUiSmallMarginTop"/>
+        <Select selectedKey="{Doviz}">
+          <core:Item key="TRY" text="TRY"/>
+          <core:Item key="USD" text="USD"/>
+          <core:Item key="EUR" text="EUR"/>
+          <core:Item key="GBP" text="GBP"/>
+        </Select>
+        <Label text="{i18n>col_stok}" class="sapUiSmallMarginTop"/>
+        <Input value="{Stok}"/>
+        <Label text="{i18n>col_tedarikciNo}" class="sapUiSmallMarginTop"/>
+        <Select
+          selectedKey="{TedarikciNo}"
+          width="100%"
+          items="{path:'/Suppliers', parameters:{$orderby:'Ad asc', $select:'TedarikciNo,Ad'}}">
+          <core:Item key="{TedarikciNo}" text="{= ${Ad} + ' (' + ${TedarikciNo} + ')' }"/>
+        </Select>
+      </VBox>
+    </content>
+    <buttons>
+      <Button text="{i18n>btn_save}" type="Emphasized" icon="sap-icon://save" press=".onDetailEditSave"/>
+      <Button text="{i18n>btn_cancel}" press=".onDetailEditCancel"/>
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

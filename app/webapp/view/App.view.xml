@@ -15,8 +15,9 @@
         <ToolbarSpacer/>
         <Title text="{i18n>appTitle}" level="H4"/>
         <ToolbarSpacer/>
-        <Image src="images/abics-logo.svg" densityAware="false" decorative="false" alt="ABICS" height="1.75rem"/>
-        <Text text="{i18n>app_brandCodeUp}" class="sapUiTinyMarginBegin"/>
+        <Image src="images/abics-mark.svg" densityAware="false" decorative="false" alt="ABICS Mark" height="1.9rem"/>
+        <Text text="ABICS" class="sapUiTinyMarginBegin sapUiTinyMarginEnd"/>
+        <Text text="{i18n>app_brandCodeUp}"/>
         <ToolbarSpacer/>
         <Text text="{i18n>app_developer}" class="sapUiTinyText"/>
         <Avatar initials="İÇ" displaySize="XS" class="sapUiSmallMarginBegin"/>

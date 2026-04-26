@@ -14,12 +14,12 @@
           <Title text="{i18n>pmd_title}" level="H2"/>
         </HBox>
 
-        <IconTabBar id="tabs" select=".onTabSelect" expanded="true" width="100%">
+        <IconTabBar id="tabs" select=".onTabSelect" expanded="true">
           <items>
 
             <IconTabFilter key="pg" text="{i18n>pmd_groups}" icon="sap-icon://group">
               <content>
-                <table:Table id="pgTable"
+                <table:Table id="pgTable" class="codeupDataTable"
                   rows="{path:'/PurchasingGroups', parameters:{$orderby:'GrupNo asc'}}"
                   selectionMode="None" alternateRowColors="true"
                   enableColumnReordering="true" visibleRowCountMode="Auto" minAutoRowCount="15"
@@ -40,7 +40,7 @@
 
             <IconTabFilter key="sg" text="{i18n>pmd_statGroups}" icon="sap-icon://bar-chart">
               <content>
-                <table:Table id="sgTable"
+                <table:Table id="sgTable" class="codeupDataTable"
                   rows="{path:'/SupplierStatGroups', parameters:{$orderby:'Kod asc'}}"
                   selectionMode="None" alternateRowColors="true"
                   enableColumnReordering="true" visibleRowCountMode="Auto" minAutoRowCount="5"
@@ -69,7 +69,7 @@
 
             <IconTabFilter key="pur" text="{i18n>pmd_purchasers}" icon="sap-icon://person-placeholder">
               <content>
-                <table:Table id="purTable"
+                <table:Table id="purTable" class="codeupDataTable"
                   rows="{path:'/Purchasers', parameters:{$orderby:'SatinalmaciNo asc'}}"
                   selectionMode="None" alternateRowColors="true"
                   enableColumnReordering="true" visibleRowCountMode="Auto" minAutoRowCount="5"

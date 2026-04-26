@@ -1,0 +1,45 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+  <Dialog title="{i18n>dialog_supplierEditTitle}" contentWidth="760px" contentHeight="640px" draggable="true" resizable="true">
+    <content>
+      <VBox class="sapUiContentPadding">
+        <Label text="{i18n>col_ad} *"/>
+        <Input value="{Ad}" required="true"/>
+        <Label text="{i18n>col_email} *" class="sapUiSmallMarginTop"/>
+        <Input value="{Email}" required="true"/>
+        <Label text="{i18n>col_ulke}" class="sapUiSmallMarginTop"/>
+        <Input value="{Ulke}"/>
+        <Label text="{i18n>col_doviz}" class="sapUiSmallMarginTop"/>
+        <Select selectedKey="{Doviz}">
+          <core:Item key="TRY" text="TRY"/>
+          <core:Item key="USD" text="USD"/>
+          <core:Item key="EUR" text="EUR"/>
+          <core:Item key="GBP" text="GBP"/>
+        </Select>
+        <Label text="{i18n>col_telefon}" class="sapUiSmallMarginTop"/>
+        <Input value="{Telefon}"/>
+
+        <Panel headerText="{i18n>supplier_editMaterialsTitle}" expandable="true" expanded="true" class="sapUiSmallMarginTop">
+          <content>
+            <Toolbar style="Clear">
+              <ToolbarSpacer/>
+              <Button icon="sap-icon://add" text="{i18n>btn_addMaterial}" type="Emphasized" press=".onSuppEditAddMaterial"/>
+            </Toolbar>
+            <Table id="suppEditMatTable" inset="false" fixedLayout="Strict" width="100%" growing="true" growingThreshold="10">
+              <columns>
+                <Column width="8rem"><Text text="{i18n>col_malzemeNo}"/></Column>
+                <Column><Text text="{i18n>col_malzemeTanimi}"/></Column>
+                <Column width="8rem"><Text text="{i18n>col_doviz}"/></Column>
+                <Column width="10rem" hAlign="End"><Text text="{i18n>col_fiyat}"/></Column>
+                <Column width="9rem" hAlign="End"><Text text="{i18n>col_stok}"/></Column>
+              </columns>
+            </Table>
+          </content>
+        </Panel>
+      </VBox>
+    </content>
+    <buttons>
+      <Button text="{i18n>btn_save}" type="Emphasized" icon="sap-icon://save" press=".onDetailEditSave"/>
+      <Button text="{i18n>btn_cancel}" press=".onDetailEditCancel"/>
+    </buttons>
+  </Dialog>
+</core:FragmentDefinition>

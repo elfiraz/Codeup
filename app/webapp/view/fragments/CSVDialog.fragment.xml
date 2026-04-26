@@ -6,6 +6,27 @@
         <u:FileUploader id="csvFU" fileType="csv" width="100%"
           placeholder="{i18n>csv_placeholder}" change=".onCSVFile"/>
 
+        <Panel headerText="{i18n>csv_checksTitle}"
+          visible="{= !!${csvShared>/checks}.length }"
+          expandable="true" expanded="true" class="sapUiSmallMarginTop">
+          <content>
+            <List items="{csvShared>/checks}" mode="None">
+              <CustomListItem>
+                <HBox justifyContent="SpaceBetween" alignItems="Center" width="100%">
+                  <VBox width="80%">
+                    <Text text="{csvShared>title}" wrapping="true"/>
+                    <Text text="{csvShared>message}" wrapping="true" class="sapUiTinyMarginTop"/>
+                  </VBox>
+                  <ObjectStatus
+                    text="{= ${csvShared>ok} ? ${i18n>csv_check_passed} : ${i18n>csv_check_failed} }"
+                    icon="{= ${csvShared>ok} ? 'sap-icon://accept' : 'sap-icon://decline' }"
+                    state="{= ${csvShared>ok} ? 'Success' : 'Error' }"/>
+                </HBox>
+              </CustomListItem>
+            </List>
+          </content>
+        </Panel>
+
         <Panel headerText="{i18n>csv_errors}"
           visible="{csvShared>/hasErrors}"
           expandable="true" expanded="true" class="sapUiSmallMarginTop">

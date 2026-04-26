@@ -39,8 +39,8 @@ sap.ui.define([
           intro: "{MalzemeNo}",
           icon: "sap-icon://product",
           attributes: [
-            new ObjectAttribute({ label: rb.getText("home_attr_pg"), text: "{SatinalmaGrAciklama}" }),
-            new ObjectAttribute({ label: rb.getText("home_attr_supplier"), text: "{TedarikciAd}" })
+            new ObjectAttribute({ title: rb.getText("home_attr_pg"), text: "{SatinalmaGrAciklama}" }),
+            new ObjectAttribute({ title: rb.getText("home_attr_supplier"), text: "{TedarikciAd}" })
           ],
           firstStatus: new ObjectStatus({
             text: { path: "Stok", formatter: this.fmtStockText.bind(this) },
@@ -60,9 +60,9 @@ sap.ui.define([
           intro: "{TedarikciNo}",
           icon: "sap-icon://supplier",
           attributes: [
-            new ObjectAttribute({ label: rb.getText("home_attr_country"), text: "{Ulke}" }),
-            new ObjectAttribute({ label: rb.getText("home_attr_email"), text: "{Email}" }),
-            new ObjectAttribute({ label: rb.getText("home_attr_phone"), text: "{Telefon}" })
+            new ObjectAttribute({ title: rb.getText("home_attr_country"), text: "{Ulke}" }),
+            new ObjectAttribute({ title: rb.getText("home_attr_email"), text: "{Email}" }),
+            new ObjectAttribute({ title: rb.getText("home_attr_phone"), text: "{Telefon}" })
           ],
           firstStatus: new ObjectStatus({ text: "{Doviz}", state: "Success" })
         })

@@ -10,9 +10,9 @@
   <f:FlexibleColumnLayout id="suppFcl" layout="{suppVM>/layout}" backgroundDesign="Solid">
 
     <f:beginColumnPages>
-      <Page showHeader="false">
+      <Page showHeader="false" enableScrolling="false">
         <content>
-          <VBox class="sapUiContentPadding">
+          <VBox class="sapUiContentPadding codeupPageContent" fitContainer="true">
 
             <HBox alignItems="Center" class="sapUiMediumMarginBottom">
               <core:Icon src="sap-icon://supplier" size="2rem" color="#00AA55" class="sapUiMediumMarginEnd"/>
@@ -22,7 +22,7 @@
               </VBox>
             </HBox>
 
-            <Toolbar style="Clear">
+            <Toolbar style="Clear" class="codeupMainToolbar">
               <HBox alignItems="Center">
                 <Title text="{i18n>suppliers_title}" level="H4"/>
                 <Title text="{path:'suppVM>/count', formatter:'.fmtCountParen'}" level="H4" class="sapUiTinyMarginBegin"/>
@@ -33,18 +33,21 @@
               <Button icon="sap-icon://add" text="{i18n>btn_add}" press=".onAdd" type="Emphasized"/>
               <Button icon="sap-icon://delete" text="{i18n>btn_delete}" press=".onDelete" type="Reject" enabled="{suppVM>/hasSel}"/>
               <Button icon="sap-icon://save" text="{i18n>btn_save}" press=".onSave" type="Accept" enabled="{suppVM>/dirty}"/>
-              <Button icon="sap-icon://cancel" text="{i18n>btn_cancel}" press=".onCancel" enabled="{suppVM>/dirty}"/>
+              <Button icon="sap-icon://cancel" text="{i18n>btn_cancel}" press=".onCancel"
+                enabled="{= ${suppVM>/dirty} || ${suppVM>/hasSel} }"/>
               <Button icon="sap-icon://upload" text="{i18n>btn_upload}" press=".onCSVOpen"/>
             </Toolbar>
 
             <table:Table
               id="suppTable"
+              class="codeupTableStretch codeupDataTable"
               rows="{path:'/Suppliers', parameters:{$orderby:'TedarikciNo asc', $$updateGroupId:'batchGroup'}}"
               selectionMode="MultiToggle"
               enableColumnReordering="true"
               alternateRowColors="true"
-              visibleRowCountMode="Auto"
-              minAutoRowCount="12"
+              visibleRowCountMode="Fixed"
+              visibleRowCount="14"
+              navigationMode="Scrollbar"
               rowSelectionChange=".onSelChange"
               busy="{suppVM>/busy}"
               noData="{i18n>home_noData}">
@@ -134,15 +137,19 @@
       <Page title="{i18n>supplierDetail_title}" showNavButton="true" navButtonPress=".onCloseDetail">
         <content>
           <VBox class="sapUiContentPadding">
+            <Toolbar style="Clear">
+              <ToolbarSpacer/>
+              <Button text="{i18n>btn_edit}" icon="sap-icon://edit" type="Emphasized" press=".onDetailEditOpen"/>
+            </Toolbar>
             <ObjectHeader
               title="{suppDetail>/Ad}"
               intro="{suppDetail>/TedarikciNo}"
               icon="sap-icon://supplier">
               <attributes>
-                <ObjectAttribute label="{i18n>col_ulke}" text="{suppDetail>/Ulke}"/>
-                <ObjectAttribute label="{i18n>col_doviz}" text="{suppDetail>/Doviz}"/>
-                <ObjectAttribute label="{i18n>col_email}" text="{suppDetail>/Email}"/>
-                <ObjectAttribute label="{i18n>col_telefon}" text="{suppDetail>/Telefon}"/>
+                <ObjectAttribute title="{i18n>col_ulke}" text="{suppDetail>/Ulke}"/>
+                <ObjectAttribute title="{i18n>col_doviz}" text="{suppDetail>/Doviz}"/>
+                <ObjectAttribute title="{i18n>col_email}" text="{suppDetail>/Email}"/>
+                <ObjectAttribute title="{i18n>col_telefon}" text="{suppDetail>/Telefon}"/>
               </attributes>
             </ObjectHeader>
             <Panel headerText="{i18n>detail_supplierMaterials}" expandable="true" expanded="true" class="sapUiSmallMarginTop">
@@ -155,8 +162,8 @@
                       number="{Fiyat}"
                       numberUnit="{Doviz}">
                       <attributes>
-                        <ObjectAttribute label="{i18n>col_satinalmaGrubu}" text="{SatinalmaGrAciklama}"/>
-                        <ObjectAttribute label="{i18n>col_stok}" text="{Stok}"/>
+                        <ObjectAttribute title="{i18n>col_satinalmaGrubu}" text="{SatinalmaGrAciklama}"/>
+                        <ObjectAttribute title="{i18n>col_stok}" text="{Stok}"/>
                       </attributes>
                     </ObjectListItem>
                   </items>

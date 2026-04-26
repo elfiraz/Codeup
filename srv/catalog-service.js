@@ -1,6 +1,9 @@
 const cds = require('@sap/cds');
 const { SELECT, INSERT } = cds.ql;
 
+// Sunum notu:
+// Bu dosya CAP servis katmanıdır. UI tarafındaki OData V4 action çağrıları burada karşılanır.
+// Kullanım: validateCSV / uploadCSV action'ları + before CREATE/UPDATE validasyonları.
 module.exports = cds.service.impl(async function () {
   const { Suppliers, Materials } = this.entities;
 
@@ -8,14 +11,22 @@ module.exports = cds.service.impl(async function () {
   function parseCSV(csv) {
     const lines = csv.replace(/\r/g, '').split('\n').filter(l => l.trim());
     if (lines.length < 2) return { headers: [], rows: [] };
-    const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-    const rows = lines.slice(1).map((line, idx) => {
+    const splitRow = (line, delimiter) => {
       const vals = []; let cur = '', inQ = false;
       for (const ch of line) {
         if (ch === '"') { inQ = !inQ; continue; }
-        if (ch === ',' && !inQ) { vals.push(cur.trim()); cur = ''; } else cur += ch;
+        if (ch === delimiter && !inQ) { vals.push(cur.trim()); cur = ''; } else cur += ch;
       }
       vals.push(cur.trim());
+      return vals;
+    };
+    const headerLine = lines[0].replace(/^\uFEFF/, '');
+    const commaCount = (headerLine.match(/,/g) || []).length;
+    const semicolonCount = (headerLine.match(/;/g) || []).length;
+    const delimiter = semicolonCount > commaCount ? ';' : ',';
+    const headers = splitRow(headerLine, delimiter).map(h => h.trim().replace(/^"|"$/g, ''));
+    const rows = lines.slice(1).map((line, idx) => {
+      const vals = splitRow(line, delimiter);
       const obj = {}; headers.forEach((h, i) => { obj[h] = vals[i] ?? ''; });
       obj.__row = idx + 2;
       return obj;
@@ -24,6 +35,19 @@ module.exports = cds.service.impl(async function () {
   }
 
   const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const digitsRe = /\D/g;
+  const normalizeGroupPrefix = (v) => String(v || '').trim().toUpperCase();
+  const toNumber = (v) => parseInt(String(v || '').replace(digitsRe, ''), 10) || 0;
+
+  async function nextMaterialNoForGroup(groupCode) {
+    const prefix = normalizeGroupPrefix(groupCode) || 'MAT';
+    const rows = await SELECT.from(Materials).columns('MalzemeNo').where({ SatinalmaGrubu: prefix });
+    const maxN = (rows || []).reduce((m, r) => {
+      const n = toNumber(r?.MalzemeNo?.slice(prefix.length));
+      return Math.max(m, n);
+    }, 0);
+    return prefix + String(maxN + 1).padStart(4, '0');
+  }
 
   // ── OTOMATİK NUMARALAMA ────────────────────────────────────
   this.before('CREATE', Suppliers, async req => {
@@ -34,10 +58,12 @@ module.exports = cds.service.impl(async function () {
   });
 
   this.before('CREATE', Materials, async req => {
+    const groupCode = normalizeGroupPrefix(req.data.SatinalmaGrubu);
     if (!req.data.MalzemeNo) {
-      const r = await SELECT.one.from(Materials).columns('max(MalzemeNo) as m');
-      const n = parseInt((r?.m || 'MAT0000000').replace(/\D/g, ''), 10) || 0;
-      req.data.MalzemeNo = 'MAT' + String(n + 1).padStart(7, '0');
+      req.data.MalzemeNo = await nextMaterialNoForGroup(groupCode);
+    }
+    if (groupCode && !String(req.data.MalzemeNo).toUpperCase().startsWith(groupCode)) {
+      req.error(400, 'Malzeme No, Satınalma Grubu ile başlamalıdır.');
     }
   });
 
@@ -49,10 +75,14 @@ module.exports = cds.service.impl(async function () {
     if (Email && !emailRe.test(Email))         req.error(400, 'Geçersiz email formatı.');
   });
 
-  this.before(['CREATE','UPDATE'], Materials, req => {
-    const { MalzemeTanimi } = req.data;
+  this.before(['CREATE','UPDATE'], Materials, async req => {
+    const { MalzemeTanimi, MalzemeNo } = req.data;
     if (MalzemeTanimi !== undefined && !MalzemeTanimi?.trim())
       req.error(400, 'Malzeme Tanımı zorunludur.');
+    const groupCode = normalizeGroupPrefix(req.data.SatinalmaGrubu);
+    if (groupCode && MalzemeNo && !String(MalzemeNo).toUpperCase().startsWith(groupCode)) {
+      req.error(400, 'Malzeme No, Satınalma Grubu ile başlamalıdır.');
+    }
   });
 
   // ── CSV VALIDATE — Suppliers (many $self = koleksiyon üzerinde çağrı) ─
@@ -108,14 +138,13 @@ module.exports = cds.service.impl(async function () {
     let inserted = 0, errors = 0;
     for (const r of rows) {
       try {
-        const res = await SELECT.one.from(Materials).columns('max(MalzemeNo) as m');
-        const n = parseInt((res?.m||'MAT0000000').replace(/\D/g,''),10)||0;
+        const groupCode = normalizeGroupPrefix(r.SatinalmaGrubu) || 'B7001';
         await INSERT.into(Materials).entries({
-          MalzemeNo: 'MAT'+String(n+1).padStart(7,'0'),
+          MalzemeNo: await nextMaterialNoForGroup(groupCode),
           MalzemeTanimi: r.MalzemeTanimi,
           Site: r.Site||'100', Doviz: r.Doviz||'TRY',
           Fiyat: parseFloat(r.Fiyat)||0, Stok: parseFloat(r.Stok)||0,
-          SatinalmaGrubu: r.SatinalmaGrubu||'',
+          SatinalmaGrubu: groupCode,
           TedarikciNo: r.TedarikciNo||''
         });
         inserted++;

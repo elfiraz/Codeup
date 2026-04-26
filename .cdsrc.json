@@ -2,7 +2,7 @@
   "requires": {
     "[hybrid]": {
       "db": {
-        "kind": "hana-cloud",
+        "kind": "hana",
         "vcap": { "name": "hana" }
       }
     }

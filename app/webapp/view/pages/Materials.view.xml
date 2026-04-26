@@ -10,9 +10,9 @@
   <f:FlexibleColumnLayout id="fcl" layout="{matVM>/layout}" backgroundDesign="Solid">
 
     <f:beginColumnPages>
-      <Page showHeader="false">
+      <Page showHeader="false" enableScrolling="false">
         <content>
-          <VBox class="sapUiContentPadding">
+          <VBox class="sapUiContentPadding codeupPageContent" fitContainer="true">
 
             <HBox alignItems="Center" class="sapUiMediumMarginBottom">
               <core:Icon src="sap-icon://product" size="2rem" color="#0070F2" class="sapUiMediumMarginEnd"/>
@@ -22,29 +22,33 @@
               </VBox>
             </HBox>
 
-            <Toolbar style="Clear">
+            <Toolbar style="Clear" class="codeupMainToolbar">
               <HBox alignItems="Center">
                 <Title text="{i18n>materials_title}" level="H4"/>
                 <Title text="{path:'matVM>/count', formatter:'.fmtCountParen'}" level="H4" class="sapUiTinyMarginBegin"/>
               </HBox>
               <ToolbarSpacer/>
               <SearchField id="matSearch" width="220px" placeholder="{i18n>btn_search}" search=".onSearch" liveChange=".onSearch"/>
-              <Button icon="sap-icon://filter" tooltip="{i18n>btn_filter}" press=".onFilter" type="{matVM>/filterBtn}"/>
+              <Button icon="sap-icon://filter" text="{path:'matVM>/filterCount', formatter:'.fmtFilterText'}"
+                tooltip="{i18n>btn_filter}" press=".onFilter" type="{matVM>/filterBtn}"/>
               <Button icon="sap-icon://add" text="{i18n>btn_add}" press=".onAdd" type="Emphasized"/>
               <Button icon="sap-icon://delete" text="{i18n>btn_delete}" press=".onDelete" type="Reject" enabled="{matVM>/hasSel}"/>
               <Button icon="sap-icon://save" text="{i18n>btn_save}" press=".onSave" type="Accept" enabled="{matVM>/dirty}"/>
-              <Button icon="sap-icon://cancel" text="{i18n>btn_cancel}" press=".onCancel" enabled="{matVM>/dirty}"/>
+              <Button icon="sap-icon://cancel" text="{i18n>btn_cancel}" press=".onCancel"
+                enabled="{= ${matVM>/dirty} || ${matVM>/hasSel} }"/>
               <Button icon="sap-icon://upload" text="{i18n>btn_upload}" press=".onCSVOpen"/>
             </Toolbar>
 
             <table:Table
               id="matTable"
+              class="codeupTableStretch codeupDataTable"
               rows="{path:'/Materials', parameters:{$orderby:'MalzemeNo asc', $$updateGroupId:'batchGroup'}}"
               selectionMode="MultiToggle"
               enableColumnReordering="true"
               alternateRowColors="true"
-              visibleRowCountMode="Auto"
-              minAutoRowCount="12"
+              visibleRowCountMode="Fixed"
+              visibleRowCount="14"
+              navigationMode="Scrollbar"
               rowSelectionChange=".onSelChange"
               busy="{matVM>/busy}"
               noData="{i18n>home_noData}">
@@ -140,6 +144,10 @@
       <Page title="{i18n>detail_title}" showNavButton="true" navButtonPress=".onCloseDetail">
         <content>
           <VBox class="sapUiContentPadding">
+            <Toolbar style="Clear">
+              <ToolbarSpacer/>
+              <Button text="{i18n>btn_edit}" icon="sap-icon://edit" type="Emphasized" press=".onDetailEditOpen"/>
+            </Toolbar>
             <ObjectHeader
               title="{matDetail>/MalzemeTanimi}"
               number="{matDetail>/Fiyat}"
@@ -147,10 +155,10 @@
               intro="{matDetail>/MalzemeNo}"
               icon="sap-icon://product">
               <attributes>
-                <ObjectAttribute label="{i18n>col_site}" text="{matDetail>/Site}"/>
-                <ObjectAttribute label="{i18n>col_satinalmaGrubu}" text="{matDetail>/SatinalmaGrubu}"/>
-                <ObjectAttribute label="{i18n>col_stok}" text="{matDetail>/Stok}"/>
-                <ObjectAttribute label="{i18n>col_tedarikciNo}" text="{matDetail>/TedarikciNo}"/>
+                <ObjectAttribute title="{i18n>col_site}" text="{matDetail>/Site}"/>
+                <ObjectAttribute title="{i18n>col_satinalmaGrubu}" text="{matDetail>/SatinalmaGrubu}"/>
+                <ObjectAttribute title="{i18n>col_stok}" text="{matDetail>/Stok}"/>
+                <ObjectAttribute title="{i18n>col_tedarikciNo}" text="{matDetail>/TedarikciNo}"/>
               </attributes>
             </ObjectHeader>
             <Panel headerText="{i18n>detail_materialSupplier}" expandable="true" expanded="true" class="sapUiSmallMarginTop">

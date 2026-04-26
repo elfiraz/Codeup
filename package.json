@@ -5,6 +5,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@cap-js/hana": "^2",
     "@sap/cds": "^8",
     "express": "^4"
   },
@@ -21,7 +22,18 @@
     "requires": {
       "db": {
         "kind": "sqlite",
-        "credentials": { "url": "db.sqlite" }
+        "credentials": {
+          "url": "db.sqlite"
+        }
+      },
+      "[hybrid]": {
+        "db": {
+          "kind": "hana",
+          "vcap": {
+            "name": "hana"
+          },
+          "credentials": {}
+        }
       }
     },
     "features": {

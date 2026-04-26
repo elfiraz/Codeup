@@ -2,20 +2,28 @@
   <ViewSettingsDialog title="Malzeme Filtrele / Sırala"
     confirm=".onFilterConfirm" cancel=".onFilterConfirm">
     <filterItems>
+      <ViewSettingsFilterItem text="Fiyat" key="FiyatAralik">
+        <items>
+          <ViewSettingsItem text="0 - 10.000" key="PRICE_0_10000"/>
+          <ViewSettingsItem text="10.000 - 50.000" key="PRICE_10000_50000"/>
+          <ViewSettingsItem text="50.000+" key="PRICE_50000_PLUS"/>
+        </items>
+      </ViewSettingsFilterItem>
+      <ViewSettingsFilterItem text="Stok" key="StokAralik">
+        <items>
+          <ViewSettingsItem text="0 - 10" key="STOCK_0_10"/>
+          <ViewSettingsItem text="10 - 100" key="STOCK_10_100"/>
+          <ViewSettingsItem text="100+" key="STOCK_100_PLUS"/>
+        </items>
+      </ViewSettingsFilterItem>
+      <ViewSettingsFilterItem text="Tedarikçi" key="TedarikciNo"/>
+      <ViewSettingsFilterItem text="Satınalmacı" key="SatinalmaGrubu"/>
       <ViewSettingsFilterItem text="Döviz" key="Doviz">
         <items>
           <ViewSettingsItem text="TRY" key="TRY"/>
           <ViewSettingsItem text="USD" key="USD"/>
           <ViewSettingsItem text="EUR" key="EUR"/>
           <ViewSettingsItem text="GBP" key="GBP"/>
-        </items>
-      </ViewSettingsFilterItem>
-      <ViewSettingsFilterItem text="Satınalma Grubu" key="SatinalmaGrubu">
-        <items>
-          <ViewSettingsItem text="B7001 - BT Yazılım"       key="B7001"/>
-          <ViewSettingsItem text="M1003 - İnşaat Demir"     key="M1003"/>
-          <ViewSettingsItem text="M3003 - Jeneratör Sistemi" key="M3003"/>
-          <ViewSettingsItem text="E6001 - Ekipman/Yedek"    key="E6001"/>
         </items>
       </ViewSettingsFilterItem>
     </filterItems>

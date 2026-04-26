@@ -20,7 +20,7 @@
 
         <l:Grid defaultSpan="L6 M12 S12" hSpacing="1" class="sapUiLargeMarginBeginEnd">
 
-          <Panel expandable="false" class="sapUiTinyMarginBottom">
+          <Panel expandable="false" class="sapUiTinyMarginBottom codeupHomeCard">
             <headerToolbar>
               <Toolbar>
                 <Title text="{i18n>home_materials_title}" level="H3"/>
@@ -33,7 +33,7 @@
             </content>
           </Panel>
 
-          <Panel expandable="false" class="sapUiTinyMarginBottom">
+          <Panel expandable="false" class="sapUiTinyMarginBottom codeupHomeCard">
             <headerToolbar>
               <Toolbar>
                 <Title text="{i18n>home_suppliers_title}" level="H3"/>
