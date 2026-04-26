@@ -1,6 +1,6 @@
-# CodeUp - Kisa Sunum Rehberi (TR)
+# CodeUp - Kod Rehberi 
 
-Bu dosya, projeyi anlatirken "hangi ozellikte hangi SAP yaklasimi kullandim?" sorusuna hizli cevap vermek icin hazirlandi.
+Bu dosya, projeyi anlamanız için "hangi ozellikte hangi SAP yaklasimi kullandim?" sorusuna hizli cevap vermek icin hazirlandi.
 
 ## 1) Ana mimari
 - `srv/catalog-service.js`: SAP CAP service katmani (backend is kurallari, CSV action'lari, validasyonlar).
@@ -53,9 +53,4 @@ Bu dosya, projeyi anlatirken "hangi ozellikte hangi SAP yaklasimi kullandim?" so
 - `srv/catalog-service.js`: backend tarafinda create/update validasyonlari ve otomatik numara uretimi.
 - Not: UI tarafi OData V4 model ile konusur; is kurallari backend'de merkezi tutulur.
 
-## 5) Sunumda kullanabilecegin kisa cumleler
-- "Bu ekranda OData V4 list binding kullandim; filtre ve siralamayi client tarafinda degil, model binding uzerinden yonettim."
-- "Kaydet/iptal akisinda batchGroup kullandim, bu sayede birden fazla degisikligi tek transaction gibi yonettim."
-- "CSV yukleme akisini iki asamali kurguladim: once validate action, sonra upload action."
-- "Detay popup'larini fragment ile ayrip tekrar kullanilabilir hale getirdim."
-- "Hata mesajlarini BaseController'da merkeziledim ve i18n ile yerellestirdim."
+
